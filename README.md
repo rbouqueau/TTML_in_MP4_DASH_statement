@@ -54,9 +54,9 @@ When a subtitle element runs along several MPEG-DASH segments, the DASH packager
 Optimization: if some subtitle elements runs across several MPEG DASH segments (e.g. 1. segments are short or 2. the TTML document couldn't be prepared in an optimized way), then you can use the redundancy flag at the MP4 container level when DASHing the content. It allows the TTML processor to know that the data doesn't need to be processed again. In this case, the MP4 timings shall be trusted (as ever). It allows optimized MP4 demuxers such as mp4box.js to avoid downloading some content that was already downloaded.
 
 ### Implementation advices summary
- 1) If you author TTML, you should prepare your content so that it fits within your MPEG-DASH segment duration. Each TTML document should last no longer than a MPEG-DASH segment and there shall be no overlap.
- 2) In any case you don't need to modify the timings of TTML document.
- 3) If the TTML is already authored, you need to split a current document. This can occur to deal with overlapping when muxing in MP4 or when packaging for MPEG-DASH. When DASH-packaging, you can signal redundancy using the MP4 redundancy flag.
+ 1. If you author TTML, you should prepare your content so that it fits within your MPEG-DASH segment duration. Each TTML document should last no longer than a MPEG-DASH segment and there shall be no overlap.
+ 2. In any case you don't need to modify the timings of TTML document.
+ 3. If the TTML is already authored, you need to split a current document. This can occur to deal with overlapping when muxing in MP4 or when packaging for MPEG-DASH. When DASH-packaging, you can signal redundancy using the MP4 redundancy flag.
 
 ### Presentation of partners and relay on all blogs with cross-links
  - GPAC Licensing
