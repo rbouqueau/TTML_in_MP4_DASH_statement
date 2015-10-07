@@ -6,14 +6,15 @@ We'd like to provide clear guidelines for implementors who need to support TTML 
  - TTML creators who intend to package their own content.
  - Packagers of third-party TTML content, MP4 and MPEG-DASH packager implementors.
 
-### History and profiles for TTML: EBU work, HbbTV 2.0, ISMC
+### History and profiles for TTML: EBU work, HbbTV 2.0, IMSC
 
 About the technologies used in this article:
  - MP4 is a container format standardized by MPEG.
  - MPEG-DASH is an adaptive bitrate (ABR) streaming standard allowing delivery of content using conventional HTTP web servers also standardized by MPEG.
  - TTML (Timed Text Markup Language) is a subtitling format designed by W3C.
- - EBU-TTD is a profile of TTML designed for live distribution. EBU-TTD restricts TTML. EBU-TTD is designed by EBU.
+ - EBU-TT-D is a profile of TTML designed for live and on demand distribution. EBU-TT-D restricts TTML. EBU-TT-D is designed by EBU.
  - HbbTV 2.0 is a standard for hybrid digital TV delivery. HbbTV 2.0 mandates the use of EBU-TTD, MP4 and MPEG-DASH.
+ - IMSC is a pair of TTML profiles, one for text and one for images designed for subtitles and captions. IMSC Text profile is a superset of EBU-TT-D.
 
 ### Overview of the workflow
 Schema:
@@ -71,3 +72,4 @@ Optimization: if some subtitle elements runs across several MPEG DASH segments (
  - [4] ISOBMF/MP4
  - [5] ISO14496-30
  - [6] EBU-TTD in MP4 https://tech.ebu.ch/docs/tech/tech3381.pdf
+ - [7] IMSC: http://www.w3.org/TR/ttml-imsc1/
