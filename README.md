@@ -1,4 +1,4 @@
-# TTML_in_MP4_DASH_statement
+# TTML in MP4 and MPEG-DASH guidelines
 
 ### Introduction
 
