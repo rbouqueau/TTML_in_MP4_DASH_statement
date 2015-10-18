@@ -12,8 +12,8 @@ About the technologies used in this article:
  - MP4 is a container format standardized by MPEG.
  - MPEG-DASH is an adaptive bitrate (ABR) streaming standard allowing delivery of content using conventional HTTP web servers also standardized by MPEG.
  - TTML (Timed Text Markup Language) is a subtitling format designed by W3C.
- - EBU-TT-D is a profile of TTML designed for live and on demand distribution. EBU-TT-D restricts TTML. EBU-TT-D is designed by EBU.
- - HbbTV 2.0 is a standard for hybrid digital TV delivery. HbbTV 2.0 mandates the use of EBU-TTD, MP4 and MPEG-DASH.
+ - EBU-TT-D is a profile of TTML designed for live and on demand distribution over IP based networks. EBU-TT-D restricts TTML. EBU-TT-D is designed by EBU.
+ - HbbTV 2.0 is a standard for hybrid digital TV delivery. HbbTV 2.0 mandates the implementation of EBU-TT-D, MP4 and MPEG-DASH.
  - IMSC is a pair of TTML profiles, one for text and one for images designed for subtitles and captions. IMSC Text profile is a superset of EBU-TT-D.
 
 ### Overview of the workflow
@@ -35,7 +35,7 @@ To prepare your content, you need to have access to the timing information one w
    - Case A: if your input is a raw TTML document, you need to parse the TTML document to find the timings of the samples. In any case you don't need to modify the timings of TTML document.
    - Case B: if your input is a MP4 document, you already have access to timing information.
 
-The parsing of TTML may seem complex. Fortunately finding which profile of TTML you are implementing as it would allow to only parse a subset of TTML (such as EBU-TTD as described in section TTML above).
+The parsing of TTML may seem complex. Fortunately finding which profile of TTML you are implementing as it would allow to only parse a subset of TTML (such as EBU-TT-D as described in section TTML above).
  
 #### 2) MP4
 
@@ -47,7 +47,33 @@ If you plan to use MPEG-DASH to deliver your content, please note that your cont
 
 Most of the time, MPEG-DASH packagers also have to prepare audio and video content. Segments from the different components (audio, video, subtitles, graphics, etc.) are often temporally aligned (although this is not a standard requirement).
 
-About timing overlaps: In a TTML document, several subtitle element may have overlapping timestamps. For example: EXAMPLE
+About timing overlaps: In a TTML document, several subtitle elements may have overlapping timestamps. For example: 
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<tt:tt  xmlns:ttp="http://www.w3.org/ns/ttml#parameter" xmlns:tts="http://www.w3.org/ns/ttml#styling" xmlns:tt="http://www.w3.org/ns/ttml" ttp:timeBase="media" xml:lang="de" ttp:cellResolution="50 30">
+	<tt:head>
+		<tt:styling>
+			<tt:style xml:id="textWhite" tts:color="#ffffff" tts:backgroundColor="#000000" tts:fontSize="160%" tts:fontFamily="monospace" />
+			<tt:style xml:id="paragraphAlign" tts:textAlign="left" />
+		</tt:styling>
+		<tt:layout>
+			<tt:region xml:id="top" tts:origin="10% 10%" tts:extent="80% 80%" tts:displayAlign="before"/>
+			<tt:region xml:id="bottom" tts:origin="10% 10%" tts:extent="80% 80%" tts:displayAlign="after" />	
+		</tt:layout>
+	</tt:head>
+	<tt:body>
+		<tt:div>
+			<tt:p xml:id="subtitle1" region="top" begin="00:00:00.000" end="00:00:04.000" style="paragraphAlign">
+				<tt:span style="textWhite">Title at the top.</tt:span>
+			</tt:p>
+			<tt:p xml:id="subtitle2" region="bottom" begin="00:00:02.000" end="00:00:06.000" style="paragraphAlign">
+				<tt:span style="textWhite">Text at the bottom.</tt:span>
+			</tt:p>
+		</tt:div>
+	</tt:body>
+</tt:tt>
+```
 
 When a subtitle element runs along several MPEG-DASH segments, the DASH packager needs to detect the timestamps from the TTML document to compose documents that contain all the content needed along the segment duration. For example: EXAMPLE
 
