@@ -2,9 +2,7 @@
 
 ### Introduction
 
-We'd like to provide clear guidelines for implementors who need to support TTML in their MP4 and MPEG-DASH workflows. These implementors can be:
- - TTML creators who intend to package their own content.
- - Packagers of third-party TTML content, MP4 and MPEG-DASH packager implementors.
+This document describes different workflows for the delivery of TTML content in MP4 and MPEG-DASH. It tries to provide hints on how to build such workflow based on existing tools. Its goal is to drive the development of TTML tools such that a maximum interoperability is achieved.
 
 ### History and profiles for TTML: EBU work, HbbTV 2.0, IMSC
 
@@ -17,37 +15,16 @@ About the technologies used in this article:
  - IMSC is a pair of TTML profiles, one for text and one for images designed for subtitles and captions. IMSC Text profile is a superset of EBU-TT-D.
 
 ### Overview of the workflow
-Schema:
+Generally speaking, we can assume that TTML workflows follow the architecture given the following image:
+![Image of Workflow](/TTMLWorkflow.png)
 
-```TTML creator => MP4 muxer => DASH packaging => ... delivery ... => DASH client => MP4 demuxer (extracts the TTML samples/documents) => TTML samples```
+In this workflow, the MP4 packager and DASH packager could be the same tool, as it is the case with MP4Box. Similarly, the DASH Access Engine and the MP4 Parser and the TTML Renderer could be the same tool, or separate such as respectively DASH.js, MP4Box.js and a TTML to HTML rendering tool.
 
-In this article, we only focus on both ends of the workflow about MP4 and TTML i.e. storing/extracting TTML documents in/from MP4 files. We are not concerned about the DASH packaging, or playback.
+Given this workflow, there are several options to produce, package and deliver TTML content over MP4 and DASH. All options have in commom that they try to minimize the quantity of downloaded data during the streaming session: this means avoiding downloading multiple times the same TTML content; and at the same time not requiring the download of the whole TTML content to start the session (especially in live). Packaging the TTML content of the entire session as a single DASH segment is indeed not optimal. Packaging of the TTML requires the content to be spread over multiple DASH segments. This can be useful for seeking or for inserting ads between segments. 
 
-### Technical part - general guidelines
+DASH segments are typically of constant duration and aligned across audio and video representations. It is not a strict requirement though. Since TTML content does not usually have a fixed frame rate, segmentation of TTML content may lead to either variable duration segments or to data duplication across segments. Such duplication should be avoided and limited, possibly to the last sample of a segment containing some data that present in the first sample of the next segment. 
 
-#### 1) TTML
-
-Timings information can be present at several locations:
- - at the TTML document level and
- - at the MP4 level.
-
-To prepare your content, you need to have access to the timing information one way or the other:
-   - Case A: if your input is a raw TTML document, you need to parse the TTML document to find the timings of the samples. In any case you don't need to modify the timings of TTML document.
-   - Case B: if your input is a MP4 document, you already have access to timing information.
-
-The parsing of TTML may seem complex. Fortunately finding which profile of TTML you are implementing as it would allow to only parse a subset of TTML (such as EBU-TT-D as described in section TTML above).
- 
-#### 2) MP4
-
-The MP4 container guarantees that the TTML decoder will only be fed with one "active" document at a time.
-
-#### 3) MPEG-DASH
-
-If you plan to use MPEG-DASH to deliver your content, please note that your content needs to be segmented. Each segment contains a short interval of time of content.
-
-Most of the time, MPEG-DASH packagers also have to prepare audio and video content. Segments from the different components (audio, video, subtitles, graphics, etc.) are often temporally aligned (although this is not a standard requirement).
-
-About timing overlaps: In a TTML document, several subtitle elements may have overlapping timestamps. For example: 
+One difficulty is that it may be difficult for tools, in the above workflow, having simple TTML capabilities to process a TTML document for the purpose of creating small, self contained, non overlapping TTML documents (sometimes called intermediate synchronic document, ISD). The example below shows a TTML document with successive `p` elements overlapping in time. 
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -75,13 +52,17 @@ About timing overlaps: In a TTML document, several subtitle elements may have ov
 </tt:tt>
 ```
 
-When a subtitle element runs along several MPEG-DASH segments, the DASH packager needs to detect the timestamps from the TTML document to compose documents that contain all the content needed along the segment duration. For example: EXAMPLE
+Some workflows may decide that the TTML Authoring tool will post-process the TTML content to produce those ISD with a fine granularity to support the smallest segment duration and to make the task of tools down the chain easier. Some other workflows may decide to leave the segmentation to tools down the chain like the DASH packager because the segment duration is only known at that level in the workflow. Some other workflows may use tools in-between to make the TTML authoring DASH-unuware and the DASH processing TTML-unaware. Depending on the design choice, the interface between the tools in the workflow will not be the same.
 
-Optimization: if some subtitle elements runs across several MPEG DASH segments (e.g. 1. segments are short or 2. the TTML document couldn't be prepared in an optimized way), then you can use the redundancy flag at the MP4 container level when DASHing the content. It allows the TTML processor to know that the data doesn't need to be processed again. In this case, the MP4 timings shall be trusted (as ever). It allows optimized MP4 demuxers such as mp4box.js to avoid downloading some content that was already downloaded.
+#### Interface between MP4 Parser and TTML Renderer
+The MP4 standard assumes that only one sample at a time is active. This means that the MP4 parser will deliver one TTML document at a time to the TTML renderer and will assume that the previous TTML document will be replaced by the new one, and that it will be used for a given duration. This standard behavior therefore constrains the upper part of the workflow, in the sense that samples cannot overlap and therefore the contained TTML document should not overlap. This improves the interoperability as not many choices are left.
 
-### Implementation advices summary
- 1. You don't need to modify the timings of TTML document.
- 2. If the TTML is already authored, you need to split a current document. This can occur to deal with overlapping when muxing in MP4 or when packaging for MPEG-DASH. When DASH-packaging, you can signal redundancy of complete documents using the MP4 redundancy flag. Redundancy must not be used to indicate partial redundancy, e.g. if a subtitle is continuing from one document to the next, but  the next document also includes a new subtitle.
+Some optimizations at the MP4 level allow for the MP4 Parser to indicate that a new TTML document is the same as the previous one and that the new document only extends the duration of the previous one. This can be useful when a TTML document has been duplicated between the last sample of a segment and the first sample of the next segment.
+
+#### Interface between TTML Authoring Tool and MP4 Packager
+There are several possibilities here. To achieve interoperability, workflow designers have to choose a strategy and make sure the tools are the right one. This depends on the TTML Authoring tool. This tool may produce:
+  - a single TTML document valid for the entire streaming session. If so, either the MP4 packager will have to split the TTML document into multiple samples, or the DASH packager will have to split the sample into multiple samples and segments to avoid unnecessary downloads. This task can be complex for general TTML documents but can be simpler for some profiles like EBU-TT-D. Hence, the workflow architecture can differ depending on the type of TTML documents.
+  - multiple non-overlapping TTML documents. If the TTML authoring tool is aware of the target DASH segment duration, it should ideally provide one TTML document per segment. If the TTML authoring tool is not aware of the DASH delivery parameters, it should try to produce the TTML documents with the smallest duration that cannot be further split. 
 
 ### Presentation of partners and relay on all blogs with cross-links
  - GPAC Licensing
