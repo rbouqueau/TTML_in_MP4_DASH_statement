@@ -37,9 +37,13 @@ Generally speaking, we can assume that TTML workflows follow the architecture gi
 
 In this workflow, the MP4 packager and DASH packager could be the same tool, as it is the case with MP4Box. Similarly, the DASH Access Engine and the MP4 Parser and the TTML Renderer could be the same tool, or separate such as respectively DASH.js, MP4Box.js and a TTML to HTML rendering tool.
 
+#### Producing TTML content over MP4 and DASH
+
 Given this workflow, there are several options to produce, package and deliver TTML content over MP4 and DASH. All options have in commom that they try to minimize the quantity of downloaded data during the streaming session: this means avoiding downloading multiple times the same TTML content; and at the same time not requiring the download of the whole TTML content to start the session (especially in live). Packaging the TTML content of the entire session as a single DASH segment is indeed not optimal. Packaging of the TTML requires the content to be spread over multiple DASH segments. This can be useful for seeking or for inserting ads between segments. 
 
-DASH segments are typically of constant duration and aligned across audio and video representations. It is not a strict requirement though. Since TTML content does not usually have a fixed frame rate, segmentation of TTML content may lead to either variable duration segments or to data duplication across segments. Such duplication should be avoided and limited, possibly to the last sample of a segment containing some data that present in the first sample of the next segment. 
+DASH segments are typically of constant duration and aligned across audio and video representations. It is not a strict requirement though. Since TTML content does not usually have a fixed frame rate, segmentation of TTML content may lead to either variable duration segments or to data duplication across segments. Such duplication should be avoided and limited, possibly to the last sample of a segment containing some data that present in the first sample of the next segment.
+
+#### Need for TTML post-processing
 
 One difficulty is that it may be difficult for tools, in the above workflow, having simple TTML capabilities to process a TTML document for the purpose of creating small, self contained, non overlapping TTML documents (sometimes called intermediate synchronic document, ISD). The example below shows a TTML document with successive `p` elements overlapping in time. 
 
