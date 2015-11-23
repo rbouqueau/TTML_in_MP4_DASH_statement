@@ -1,5 +1,22 @@
 # TTML in MP4 and MPEG-DASH guidelines
 
+### About
+
+Authors:
+ - Romain Bouqueau (romain.bouqueau@gpac-licensing.com)
+ - Cyril Concolato (cyril.concolato@telecom-paristech.fr)
+
+Contributors
+ - Nigel Meggit ()
+ - Andreas Tai ()
+
+Contributing entities:
+ - GPAC Licensing is an industry-oriented initiative around the (GPAC open-source multimedia framework)[www.gpac.io]. We offer licenses and professional services (consulting, trainings, support and custom developments).
+ - Telecom ParisTech is ...
+ - BBC R&D is ...
+ - IRT is ...
+ - EBU is ...
+
 ### Introduction
 
 This document describes different workflows for the delivery of TTML content in MP4 and MPEG-DASH. It tries to provide hints on how to build such workflow based on existing tools. Its goal is to drive the development of TTML tools such that a maximum interoperability is achieved.
@@ -64,10 +81,6 @@ There are several possibilities here. To achieve interoperability, workflow desi
   - A single TTML document valid for the entire streaming session. If so, either the MP4 packager will have to split the TTML document into multiple samples, or the DASH packager will have to split the sample into multiple samples and segments to avoid unnecessary downloads. This task can be complex for general TTML documents but can be simpler for some profiles like EBU-TT-D. Hence, the workflow architecture can differ depending on the type of TTML documents.
   - Multiple non-overlapping TTML documents. If the TTML authoring tool is aware of the target DASH segment duration, it should ideally provide one TTML document per segment. If the TTML authoring tool is not aware of the DASH delivery parameters, it should try to produce the TTML documents with the smallest duration that cannot be further split. 
 
-### Presentation of partners and relay on all blogs with cross-links
- - GPAC Licensing
- - Telecom ParisTech
- - BBC R&D
- - IRT
- - EBU
+### Conclusion
 
+If you have any feedback, remarks and questions. Please free to contact us directly or via our [https://github.com/rbouqueau/TTML_in_MP4_DASH_statement](Github project). Thank you.
