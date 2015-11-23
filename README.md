@@ -7,12 +7,12 @@ This document describes different workflows for the delivery of TTML content in 
 ### History and profiles for TTML: EBU work, HbbTV 2.0, IMSC
 
 About the technologies used in this article:
- - MP4 is a container format standardized by MPEG.
- - MPEG-DASH is an adaptive bitrate (ABR) streaming standard allowing delivery of content using conventional HTTP web servers also standardized by MPEG.
- - TTML (Timed Text Markup Language) is a subtitling format designed by W3C.
- - EBU-TT-D is a profile of TTML designed for live and on demand distribution over IP based networks. EBU-TT-D restricts TTML. EBU-TT-D is designed by EBU.
- - HbbTV 2.0 is a standard for hybrid digital TV delivery. HbbTV 2.0 mandates the implementation of EBU-TT-D, MP4 and MPEG-DASH.
- - IMSC is a pair of TTML profiles, one for text and one for images designed for subtitles and captions. IMSC Text profile is a superset of EBU-TT-D.
+ - [MP4](https://en.wikipedia.org/wiki/MPEG-4_Part_14) is a container format standardized by MPEG.
+ - [MPEG-DASH](http://standards.iso.org/ittf/PubliclyAvailableStandards/c065274_ISO_IEC_23009-1_2014.zip) is an adaptive bitrate (ABR) streaming standard allowing delivery of content using conventional HTTP web servers also standardized by MPEG.
+ - [TTML](http://www.w3.org/TR/ttml1/) (Timed Text Markup Language) is a subtitling format designed by W3C.
+ - [EBU-TT-D](https://tech.ebu.ch/docs/tech/tech3380.pdf) is a profile of TTML designed for live and on demand distribution over IP based networks. EBU-TT-D restricts TTML. EBU-TT-D is designed by EBU.
+ - [HbbTV 2.0](https://www.hbbtv.org/pages/about_hbbtv/HbbTV_specification_2_0.pdf) is a standard for hybrid digital TV delivery. HbbTV 2.0 mandates the implementation of EBU-TT-D, MP4 and MPEG-DASH.
+ - [IMSC](http://www.w3.org/TR/ttml-imsc1/) is a pair of TTML profiles, one for text and one for images designed for subtitles and captions. IMSC Text profile is a superset of EBU-TT-D.
 
 ### Overview of the workflow
 Generally speaking, we can assume that TTML workflows follow the architecture given the following image:
@@ -71,11 +71,3 @@ There are several possibilities here. To achieve interoperability, workflow desi
  - IRT
  - EBU
 
-### References
- - [1] TTML
- - [2] EBU-TTD: https://tech.ebu.ch/docs/tech/tech3380.pdf
- - [3] HbbTV 2.0
- - [4] ISOBMF/MP4
- - [5] ISO14496-30
- - [6] EBU-TTD in MP4 https://tech.ebu.ch/docs/tech/tech3381.pdf
- - [7] IMSC: http://www.w3.org/TR/ttml-imsc1/
