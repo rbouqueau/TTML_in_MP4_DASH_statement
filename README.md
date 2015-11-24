@@ -6,7 +6,7 @@ Authors:
  - Romain Bouqueau (romain.bouqueau@gpac-licensing.com)
  - Cyril Concolato (cyril.concolato@telecom-paristech.fr)
 
-Contributors
+Contributors:
  - Nigel Megitt (nigel.megitt@bbc.co.uk)
  - Andreas Tai (tai@irt.de)
 
@@ -87,4 +87,4 @@ There are several possibilities here. To achieve interoperability, workflow desi
 
 ### Conclusion
 
-If you have any feedback, remarks and questions. Please free to contact us directly or via our [https://github.com/rbouqueau/TTML_in_MP4_DASH_statement](Github project). Thank you.
+If you have any feedback, remarks and questions. Please free to contact us directly or via on github: [https://github.com/rbouqueau/TTML_in_MP4_DASH_statement](Github project). Thank you.
