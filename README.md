@@ -7,11 +7,11 @@ Authors:
  - Cyril Concolato (cyril.concolato@telecom-paristech.fr)
 
 Contributors
- - Nigel Meggit ()
- - Andreas Tai ()
+ - Nigel Megitt (nigel.megitt@bbc.co.uk)
+ - Andreas Tai (tai@irt.de)
 
 Contributing entities:
- - GPAC Licensing is an industry-oriented initiative around the (GPAC open-source multimedia framework)[www.gpac.io]. We offer licenses and professional services (consulting, trainings, support and custom developments).
+ - [GPAC Licensing](www.gpac-licensing.com) is an industry-oriented initiative around the [GPAC open-source multimedia framework](www.gpac.io). We offer licenses and professional services (consulting, trainings, support and custom developments) by world-class experts in the Broadcast and multimedia fields.
  - Telecom ParisTech is ...
  - BBC R&D is ...
  - IRT is ...
