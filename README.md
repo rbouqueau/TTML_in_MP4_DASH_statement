@@ -1,5 +1,7 @@
 # TTML in MP4 and MPEG-DASH guidelines
 
+Copyright © 2015 GPAC Licensing, Telecom ParisTech, BBC, IRT, EBU.
+
 ### Introduction
 
 This document describes different workflows for the delivery of TTML content in MP4 and MPEG-DASH. It tries to provide hints on how to build such workflow based on existing tools. Its goal is to drive the development of TTML tools such that a maximum interoperability is achieved.
