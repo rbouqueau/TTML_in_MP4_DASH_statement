@@ -11,12 +11,6 @@ Contributors:
  - Andreas Tai (tai@irt.de)
  - Frans de Jong (dejong@ebu.ch)
 
-Contributing entities:
- - [GPAC Licensing](www.gpac-licensing.com) is an industry-oriented initiative around the [GPAC open-source multimedia framework](www.gpac.io). We offer licenses and professional services (consulting, trainings, support and custom developments) by world-class experts in the Broadcast and multimedia fields.
- - Telecom ParisTech is ...
- - BBC R&D is ...
- - The [EBU](https://tech.ebu.ch) creates technical specifications to improve the quality and interoperability of media products and services, including for subtitling.
-
 ### Introduction
 
 This document describes different workflows for the delivery of TTML content in MP4 and MPEG-DASH. It tries to provide hints on how to build such workflows based on existing tools. Its goal is to drive the development of TTML tools such that maximum interoperability is achieved.
