@@ -37,6 +37,8 @@ Given this workflow, there are several options to produce, package and deliver T
 
 DASH segments are typically of constant duration and aligned across audio and video representations. This is not a strict requirement though. Since TTML content does not have a constant rate of change, segmentation of TTML content may lead to either variable duration segments or to data duplication across segments. Such duplication should be avoided and limited, possibly to the last sample of a segment containing some data that is present in the first sample of the next segment.
 
+Note: [preliminary figures](https://github.com/rbouqueau/TTML_in_MP4_DASH_statement/issues/6#issuecomment-172486556)) show that subtitles account for 0.0004% to 0.07% of the programme bandwith. As a consequence we don't think debate about storage, network and distribution costs are sensible.
+
 #### Need for a TTML Segmenter
 
 In above workflow it may be difficult for tools that have only simple TTML capabilities, to process a TTML document for the purpose of creating small, self contained, non-timewise-overlapping TTML documents. The TTML Segmenter segments one (or more) TTML input document(s) into output TTML documents, each containing only the timed data needed for presentation within its segment time to avoid unnecessary data duplication
