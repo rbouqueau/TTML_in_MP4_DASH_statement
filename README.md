@@ -29,7 +29,7 @@ About the technologies used in this article:
 Generally speaking, we can assume that TTML workflows follow the architecture provided by the following image:
 ![Image of Workflow](/TTMLWorkflow.png)
 
-In this workflow, the MP4 packager and DASH packager could be the same tool, as it is the case with MP4Box. Similarly, the DASH Access Engine and the MP4 Parser and the TTML Renderer could be the same tool, or separate tools such as respectively DASH.js, MP4Box.js and a TTML to HTML rendering tool.
+In this workflow, the MP4 packager and DASH packager could be the same tool, as it is the case with [MP4Box](http://gpac.io/mp4box). Similarly, the DASH Access Engine and the MP4 Parser and the TTML Renderer could be the same tool, or separate tools such as respectively [DASH.js](https://github.com/Dash-Industry-Forum/dash.js/wiki), [MP4Box.js](https://github.com/gpac/mp4box.js/) and a TTML to HTML rendering tool.
 
 #### Producing TTML content over MP4 and DASH
 
