@@ -37,7 +37,7 @@ Given this workflow, there are several options to produce, package and deliver T
 
 DASH segments are typically of constant duration and aligned across audio and video representations. This is not a strict requirement though. Since TTML content does not have a constant rate of change, segmentation of TTML content may lead to either variable duration segments or to data duplication across segments. Such duplication should be avoided and limited, possibly to the last sample of a segment containing some data that is present in the first sample of the next segment.
 
-Note: [preliminary figures](https://github.com/rbouqueau/TTML_in_MP4_DASH_statement/issues/6#issuecomment-172486556)) show that subtitles account for 0.0004% to 0.07% of the programme bandwith. As a consequence we don't think debate about storage, network and distribution costs are sensible.
+Note: [preliminary figures](https://github.com/rbouqueau/TTML_in_MP4_DASH_statement/issues/6#issuecomment-172486556)) show that subtitles account for 0.0004% to 0.07% of the whole "programme" bandwith. As a consequence we don't think debate about storage, network and distribution costs are sensible.
 
 #### Need for a TTML Segmenter
 
@@ -81,7 +81,7 @@ Some optimizations at the MP4 level allow for the MP4 Parser to indicate that a 
 #### Interface between TTML Authoring Tool and MP4 Packager
 There are several possibilities here. To achieve interoperability, workflow designers have to choose a strategy and make sure the tools are the right ones. This depends on the TTML Authoring tool. This tool may produce:
  - A single TTML document valid for the entire streaming session. If so, either the MP4 packager will have to split the TTML document into multiple samples, or the DASH packager will have to split the sample into multiple samples and segments to avoid unnecessary downloads. This task can be complex for general TTML documents, but it can be simpler for some profiles, such as EBU-TT-D. Hence, the workflow architecture may differ depending on the type of TTML documents.
- - Multiple non-timewise-overlapping TTML documents. If the TTML authoring tool is aware of the target DASH segment duration, it should ideally provide one TTML document per segment. If the TTML authoring tool is not aware of the DASH delivery parameters, it should try to produce the TTML documents with the smallest duration that cannot be further split. 
+ - Multiple non-timewise-overlapping TTML documents. If the TTML authoring tool is aware of the target DASH segment duration, it should ideally provide one TTML document per segment. If the TTML authoring tool is not aware of the DASH delivery parameters, it should try to produce the TTML documents with the smallest duration that cannot be further split.
 
 ### Conclusion
 
