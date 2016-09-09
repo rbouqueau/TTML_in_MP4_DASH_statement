@@ -13,7 +13,7 @@ Contributors:
 
 ### Introduction
 
-This document describes different workflows for the delivery of TTML content in MP4 and MPEG-DASH. It tries to provide hints on how to build such workflows based on existing tools. Its goal is to drive the development of TTML tools such that maximum interoperability is achieved.
+This document describes different workflows for the delivery of TTML content in MP4 and MPEG-DASH. It tries to provide hints on how to build such workflows based on existing tools. Its goal is to drive the development of TTML tools so that maximum interoperability is achieved.
 
 ### History and profiles for TTML: EBU work, HbbTV 2.0, IMSC
 
@@ -33,11 +33,11 @@ In this workflow, the MP4 packager and DASH packager could be the same tool, as 
 
 #### Producing TTML content over MP4 and DASH
 
-Given this workflow, there are several options to produce, package and deliver TTML content over MP4 and DASH. All options have in commom that they try to minimize the quantity of downloaded data during the streaming session: this means avoiding downloading the same TTML content multiple times; and at the same time not requiring the download of the whole TTML content to start the session (especially relevant for live applications). Packaging the TTML content of the entire session as a single DASH segment is indeed not optimal. Packaging of the TTML requires the content to be spread over multiple DASH segments. This can be useful for seeking or for inserting ads between segments. 
+Given this workflow, there are several options to produce, package and deliver TTML content over MP4 and DASH. All options have in common that they try to minimize the quantity of downloaded data during the streaming session: this means avoiding downloading the same TTML content multiple times; and at the same time not requiring the download of the whole TTML content to start the session (especially relevant for live applications). Packaging the TTML content of the entire session as a single DASH segment is indeed not optimal. Packaging of the TTML requires the content to be spread over multiple DASH segments. This can be useful for seeking or for inserting ads between segments. 
 
 DASH segments are typically of constant duration and aligned across audio and video representations. This is not a strict requirement though. Since TTML content does not have a constant rate of change, segmentation of TTML content may lead to either variable duration segments or to data duplication across segments. Such duplication should be avoided and limited, possibly to the last sample of a segment containing some data that is present in the first sample of the next segment.
 
-Note: [preliminary figures](https://github.com/rbouqueau/TTML_in_MP4_DASH_statement/issues/6#issuecomment-172486556)show that subtitles account for 0.0004% to 0.07% of the whole "programme" bandwith. As a consequence we don't think debate about storage, network and distribution costs are sensible.
+Note: [preliminary figures](https://github.com/rbouqueau/TTML_in_MP4_DASH_statement/issues/6#issuecomment-172486556) show that subtitles account for 0.0004% to 0.07% of the whole "programme" bandwith. As a consequence we don't think debate about storage, network and distribution costs are sensible.
 
 #### Need for a TTML Segmenter
 
@@ -71,7 +71,7 @@ The example below shows a TTML document with successive `p` elements overlapping
 </tt:tt>
 ```
 
-Some workflows may decide that the TTML Authoring tool will post-process the TTML content to produce those non-timewise-overlapping TTML documents with a fine granularity to support the smallest segment duration and take care of timebase conversions. Such a post-processing TTML Segmenting tool would make the task of tools down the chain easier. Other workflows may decide to leave the segmentation to tools down the chain like the DASH packager because the segment duration is only known at that level in the workflow. Yet other workflows may use tools in-between to make the TTML authoring DASH-unuware and the DASH processing TTML-unaware. Depending on the design choice, the interface between the tools in the workflow will not be the same.
+Some workflows may decide that the TTML Authoring tool will post-process the TTML content to produce those non-timewise-overlapping TTML documents with a fine granularity to support the smallest segment duration and take care of timebase conversions. Such a post-processing TTML Segmenting tool would make the task of tools down the chain easier. Other workflows may decide to leave the segmentation to tools down the chain like the DASH packager because the segment duration is only known at that level in the workflow. Yet other workflows may use tools in-between to make the TTML authoring DASH-unaware and the DASH processing TTML-unaware. Depending on the design choice, the interface between the tools in the workflow will not be the same.
 
 The TTML content may be segmented in the following ways:
  - A single TTML document is created for the entire streaming session. The content is marked as redundant in all but the first sample or segment (technical details below in this document).
